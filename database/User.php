@@ -12,15 +12,15 @@ Capsule::schema()->create('users', function ($table) {
 
     $table->string('name');
 
+    $table->bigInteger ('document')->unique();
+
     $table->string('email')->unique();
 
     $table->string('password');
 
-    $table->string('userimage')->nullable();
+    $table->unsignedInteger('id_country');
 
-    $table->string('api_key')->nullable()->unique();
-
-    $table->rememberToken();
+    $table->foreign('id_country')->references('id_country')->on('country')->onDelete('cascade');
 
     $table->timestamps();
 
