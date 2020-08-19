@@ -6,14 +6,14 @@
         @if(isset($_SESSION['email']))
             <p>{{$_SESSION['email']}}</p>
         @endif
-        <a class="navbar-brand" href="/zinobeBackEnd/Login/logout/">LogOut</a>
+        <a class="navbar-brand" href="https://shielded-fjord-53139.herokuapp.com/Login/logout/">LogOut</a>
     </nav>
 @endsection
 @section('content')
     @if(isset($_SESSION['name_user']))
         <p class="pt-5"><b>Hello {{$_SESSION['name_user']}} wellcome to page!</b></p>
     @endif
-    <form class="form-inline pt-3" method="POST" action="/zinobeBackEnd/User/search_user">
+    <form class="form-inline pt-3" method="POST" action="https://shielded-fjord-53139.herokuapp.com/User/search_user">
         <input class="form-control mr-sm-2" name="search" type="search" placeholder="Name User or Email" aria-label="Search">
         <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
     </form>

@@ -45,7 +45,7 @@ class UserController extends Views
                 $user->created_at = new \DateTime('NOW');
                 $user->save ();
                 if ($user->id) {
-                    header ("Location: /zinobeBackEnd/Login/exec/user_sucess");
+                    header ("Location: https://shielded-fjord-53139.herokuapp.com/Login/exec/user_sucess");
                 }
             }
         }else{

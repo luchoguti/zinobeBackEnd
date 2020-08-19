@@ -3,11 +3,11 @@
 @section('title', 'Create New UserController')
 @section('sidebar')
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="/zinobeBackEnd/">Login</a>
+        <a class="navbar-brand" href="https://shielded-fjord-53139.herokuapp.com/">Login</a>
     </nav>
 @endsection
 @section('content')
-    <form class="p-2" method="post" action="/zinobeBackEnd/User/store">
+    <form class="p-2" method="post" action="https://shielded-fjord-53139.herokuapp.com/User/store">
         <div class="form-row">
             <div class="col-12 pt-2">
                 <div class="alert alert-primary" role="alert">

@@ -1,7 +1,7 @@
 <?php
 
 require "vendor/autoload.php";
-
+require "config.php";
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 
@@ -9,15 +9,17 @@ $capsule = new Capsule;
 
 $capsule->addConnection([
 
-    "driver" => "mysql",
+    "driver" => DB_CONNECTION,
 
-    "host" =>"127.0.0.1",
+    "port"=> DB_PORT,
 
-    "database" => "zinobe_back_end",
+    "host" => DB_HOST,
 
-    "username" => "root",
+    "database" => DB_DATABASE,
 
-    "password" => ""
+    "username" => DB_USERNAME,
+
+    "password" => DB_PASSWORD
 
 ]);
 

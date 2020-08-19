@@ -57,7 +57,7 @@ class LoginController extends Views
                 if (password_verify ($request['password_login'], $valid_email[0]->password)) {
                     $this->session->add ('name_user', $valid_email[0]->name);
                     $this->session->add ('email', $valid_email[0]->email);
-                    header ("Location: /zinobeBackEnd/Home/init");
+                    header ("Location: https://shielded-fjord-53139.herokuapp.com/Home/init");
                 } else {
                     $data = [
                         'error' => "Email or password does not match, please verify!",
@@ -82,7 +82,7 @@ class LoginController extends Views
      */
     public function logout(){
         $this->session->close ();
-        header("Location: /zinobeBackEnd/");
+        header("Location: https://shielded-fjord-53139.herokuapp.com/");
     }
 
     /**
