@@ -4,13 +4,20 @@
 
 <?php $__env->startSection('sidebar'); ?>
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="./index.php/new_user">New User</a>
+        <a class="navbar-brand" href="/zinobeBackEnd/User/create_user_view/">Create User</a>
     </nav>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <form>
-        <div class="form-group">
+    <?php if(isset($message)): ?>
+        <div class="col-12 pt-2">
+            <div class="alert alert-warning" role="">
+                <p><?php echo e($message); ?></p>
+            </div>
+        </div>
+    <?php endif; ?>
+    <form class="pt-4">
+        <div class="form-group ">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>

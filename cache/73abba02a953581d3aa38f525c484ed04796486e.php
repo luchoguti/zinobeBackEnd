@@ -1,41 +1,82 @@
 
 
-<?php $__env->startSection('title', 'Create New User'); ?>
-
+<?php $__env->startSection('title', 'Create New UserController'); ?>
+<?php $__env->startSection('sidebar'); ?>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="/zinobeBackEnd/">Login</a>
+    </nav>
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-    <form class="p-2" method="post" action="./index.php/save_user">
+    <form class="p-2" method="post" action="/zinobeBackEnd/User/store">
         <div class="form-row">
             <div class="col-12 pt-2">
                 <div class="alert alert-primary" role="alert">
                     Create new user
                 </div>
             </div>
+            <?php if(!empty($validate)): ?>
+                <div class="col-12 pt-2">
+                    <div class="alert alert-danger" role="alert">
+                        <?php $__currentLoopData = $validate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $valid): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <p><?php echo e($valid); ?>!</p>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+            <?php endif; ?>
             <div class="form-group col-4 pt-2">
                 <label for="name1">Name</label>
-                <input type="text" name="name" id="name1" class="form-control" placeholder="Names" required>
+                <?php if(isset($dataForm['name'])): ?>
+                    <input type="text" name="name" id="name1" value="<?php echo e($dataForm['name']); ?>" class="form-control" placeholder="Names" required>
+                <?php else: ?>
+                    <input type="text" name="name" id="name1" class="form-control" placeholder="Names" required>
+                <?php endif; ?>
             </div>
             <div class="form-group col-4 pt-2">
                 <label for="document1">Number Document</label>
-                <input type="number" max="9999999999" id="document1" name="document" class="form-control" placeholder="Number Document" required>
+                <?php if(isset($dataForm['document'])): ?>
+                    <input type="number" max="9999999999" value="<?php echo e($dataForm['document']); ?>"  id="document1" name="document" class="form-control" placeholder="Number Document" required>
+                <?php else: ?>
+                    <input type="number" max="9999999999"  id="document1" name="document" class="form-control" placeholder="Number Document" required>
+                <?php endif; ?>
             </div>
             <div class="form-group col-4 pt-2">
                 <label for="email1">Email</label>
-                <input type="email" name="email" id="email11" class="form-control" placeholder="Email" required>
+                <?php if(isset($dataForm['email'])): ?>
+                    <input type="email" name="email" value="<?php echo e($dataForm['email']); ?>" id="email11" class="form-control" placeholder="Email" required>
+                <?php else: ?>
+                    <input type="email" name="email" id="email11" class="form-control" placeholder="Email" required>
+                <?php endif; ?>
             </div>
             <div class="form-group col-4 pt-2">
                 <label for="password2">Confirm Password</label>
-                <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirm Password" required>
+                <?php if(isset($dataForm['password_confirm'])): ?>
+                    <input type="password" name="password_confirm" value="<?php echo e($dataForm['password_confirm']); ?>" id="password2" class="form-control" placeholder="Confirm Password" required>
+                <?php else: ?>
+                    <input type="password" name="password_confirm" id="password2" class="form-control" placeholder="Confirm Password" required>
+                <?php endif; ?>
             </div>
             <div class="form-group col-4 pt-2">
                 <label for="password1">Password</label>
-                <input type="password" name="password" id="password1" class="form-control" placeholder="Password" required>
+                <?php if(isset($dataForm['password'])): ?>
+                    <input type="password" name="password" value="<?php echo e($dataForm['password']); ?>" id="password1" class="form-control" placeholder="Password" required>
+                <?php else: ?>
+                    <input type="password" name="password" id="password1" class="form-control" placeholder="Password" required>
+                <?php endif; ?>
             </div>
             <div class="form-group col-4 pt-2">
-                <label for="password1">Country</label>
-                <select id="password1" class="form-control" required>
-                    <option selected>Choose Country...</option>
+                <label for="country1">Country</label>
+                <select id="country1" name="country" class="form-control" required>
+                    <option value="">Choose Country...</option>
                     <?php $__currentLoopData = $country; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dataCountry): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($dataCountry['id_country']); ?>"><?php echo e($dataCountry['name']); ?></option>
+                        <?php if(isset($dataForm['country'])): ?>
+                            <?php if($dataForm['country']== $dataCountry['id_country']): ?>
+                                <option value="<?php echo e($dataCountry['id_country']); ?>" selected><?php echo e($dataCountry['name']); ?></option>
+                            <?php else: ?>
+                                <option value="<?php echo e($dataCountry['id_country']); ?>"><?php echo e($dataCountry['name']); ?></option>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <option value="<?php echo e($dataCountry['id_country']); ?>"><?php echo e($dataCountry['name']); ?></option>
+                        <?php endif; ?>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
             </div>

@@ -1,24 +1,28 @@
 <?php
+
+define('BASEPATH', true);
+require 'config.php';
 require 'vendor/autoload.php';
-use App\Controllers\Home;
-use App\Controllers\User;
+//require 'config/autoload.php';
 
-$home = new Home();
-$user = new User();
+use Config\Router;
+use Config\Helper;
 
-if(isset($_REQUEST['action'])){
-    switch ($_REQUEST['action']){
-        case 'save_user':
-            $user->store ();
-        break;
-        case 'new_user':
-            $user->create_user_view ();
-        break;
-        default:
-            $home->index ();
-        break;
-    }
-}else{
-    $home->index ();
+$router = new Router();
+$controller = $router->getController();
+$method = $router->getMethod();
+$param = $router->getParam();
+
+if(Helper::validateController ($controller)){
+    $controller = 'ErrorPage';
 }
 
+$controller .= 'Controller';
+$controller = PATH_CONTROLLERS ."\\{$controller}";
+
+if(!Helper::validateMethodController($controller, $method)) {
+    $method = 'exec';
+}
+
+$controller = new $controller();
+$controller->$method($param);

@@ -1,6 +1,6 @@
 
 
-<?php $__env->startSection('title', 'Create New User'); ?>
+<?php $__env->startSection('title', 'Create New UserController'); ?>
 
 <?php $__env->startSection('content'); ?>
     <form>

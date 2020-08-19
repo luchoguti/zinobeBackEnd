@@ -1,8 +1,12 @@
 <?php
 
-namespace App;
+namespace Config;
 use Jenssegers\Blade\Blade;
 
+/**
+ * Class Views
+ * @package Config
+ */
 class Views
 {
     /**

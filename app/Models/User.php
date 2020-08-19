@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 /**
- * Class User
+ * Class UserController
  * @package App\Models
  */
 class User extends Eloquent
