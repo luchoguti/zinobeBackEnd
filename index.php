@@ -7,8 +7,12 @@ require 'vendor/autoload.php';
 
 use Config\Router;
 use Config\Helper;
+use Config\Session;
 
 $router = new Router();
+$session = new Session();
+
+$session->init ();
 $controller = $router->getController();
 $method = $router->getMethod();
 $param = $router->getParam();

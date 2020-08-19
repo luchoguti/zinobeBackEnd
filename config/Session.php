@@ -76,4 +76,13 @@ class Session
     {
         return session_status();
     }
+
+    public function validate_session()
+    {
+        if(isset($_SESSION['email'])||isset($_SESSION['name_user'])){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

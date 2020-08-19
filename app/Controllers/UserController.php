@@ -5,6 +5,7 @@ namespace App\Controllers;
 require './bootstrap.php';
 use App\Models\User as UserModel;
 use App\Models\Country;
+use Config\Session;
 use Config\Views;
 
 /**
@@ -14,26 +15,42 @@ use Config\Views;
 class UserController extends Views
 {
     /**
+     * @var Session
+     */
+    private $session;
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct()
+    {
+        $this->session = new Session();
+    }
+
+    /**
      * @param array $request
      */
     public function store(array $request){
-        $valid=$this->validate_store ($request);
-        if($valid[0]){
-            $this->create_user_view ($valid[1],$request);
-        }else {
-            $user = new UserModel();
-            $user->name = $request['name'];
-            $user->document = $request['document'];
-            $user->email = $request['email'];
-            $user->password = password_hash ($request['password'], PASSWORD_BCRYPT);
-            $user->id_country = $request['country'];
-            $user->created_at = new \DateTime('NOW');
-            $user->save ();
-            if($user->id){
-                header("Location: /zinobeBackEnd/Login/exec/user_sucess");
+        if (!$this->session->validate_session ()) {
+            $valid = $this->validate_store ($request);
+            if ($valid[0]) {
+                $this->create_user_view ($valid[1], $request);
+            } else {
+                $user = new UserModel();
+                $user->name = $request['name'];
+                $user->document = $request['document'];
+                $user->email = $request['email'];
+                $user->password = password_hash ($request['password'], PASSWORD_BCRYPT);
+                $user->id_country = $request['country'];
+                $user->created_at = new \DateTime('NOW');
+                $user->save ();
+                if ($user->id) {
+                    header ("Location: /zinobeBackEnd/Login/exec/user_sucess");
+                }
             }
+        }else{
+            $this->view_session ();
         }
-
     }
 
     /**
@@ -42,14 +59,35 @@ class UserController extends Views
      */
     public function create_user_view($validate=[], $dataForm=[])
     {
-       $country = Country::all ()->toArray ();
-       echo $this->getBlade ()->render ('user',[
-           'country'=>$country,
-           'validate'=>$validate,
-           'dataForm'=>$dataForm
-       ]);
+       if (!$this->session->validate_session ()) {
+           $country = Country::all ()->toArray ();
+           echo $this->getBlade ()->render ('user', [
+               'country' => $country,
+               'validate' => $validate,
+               'dataForm' => $dataForm
+           ]);
+       }else {
+           $this->view_session ();
+       }
     }
 
+    /**
+     * @param $request
+     */
+    public function search_user($request)
+    {
+        $userData = UserModel::query ()
+            ->where('email','LIKE',"%{$request['search']}%")
+            ->orWhere('name','LIKE',"%{$request['search']}%")
+            ->with ('country')
+            ->get ()
+            ->toArray ();
+
+        echo $this->getBlade ()->render ('home',[
+            'result_filter'=>$userData
+        ]);
+
+    }
     /**
      * @param $request
      * @return array
@@ -84,5 +122,13 @@ class UserController extends Views
             0=>$valid,
             1=>$message_valid
         ];
+    }
+
+    /**
+     *
+     */
+    private function view_session()
+    {
+        echo $this->getBlade ()->render ('home');
     }
 }

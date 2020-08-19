@@ -16,10 +16,21 @@
             </div>
         </div>
     @endif
+    @if(isset($error))
+        <div class="col-12 pt-2">
+            <div class="alert alert-danger" role="">
+                <p>{{$error}}</p>
+            </div>
+        </div>
+    @endif
     <form class="pt-4" method="post" action="/zinobeBackEnd/Login/login">
         <div class="form-group ">
             <label for="exampleInputEmail1">Email address</label>
-            <input type="email" name="email_login" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            @if(isset($dataForm['email_login']))
+                <input type="email" value="{{$dataForm['email_login']}}" name="email_login" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            @else
+                <input type="email" name="email_login" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            @endif
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">

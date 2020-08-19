@@ -32,7 +32,7 @@ class User extends Eloquent
      */
     public function country()
     {
-        return $this->hasMany ('App\Models\Country');
+        return $this->hasMany ('App\Models\Country','id_country');
     }
 
 }
