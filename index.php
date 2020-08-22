@@ -3,7 +3,6 @@
 define('BASEPATH', true);
 require 'config.php';
 require 'vendor/autoload.php';
-//require 'config/autoload.php';
 
 use Config\Router;
 use Config\Helper;
