@@ -56,7 +56,7 @@ class Router
      */
     public function setController()
     {
-        $this->controller = $this->uri[2] === '' ? DEFAULT_CONTROLLER : $this->uri[2];
+        $this->controller = $this->uri[1] === '' ? DEFAULT_CONTROLLER : $this->uri[1];
     }
 
 
