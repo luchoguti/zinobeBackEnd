@@ -22,9 +22,6 @@ if(Helper::validateController ($controller)){
 
 $controller .= 'Controller';
 $controller = PATH_CONTROLLERS ."\\{$controller}";
-echo '<pre>';
-var_dump ($controller);
-var_dump ($method);
 
 if(!Helper::validateMethodController($controller, $method)) {
     $method = 'exec';

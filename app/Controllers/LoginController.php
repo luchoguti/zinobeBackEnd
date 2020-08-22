@@ -49,31 +49,35 @@ class LoginController extends Views
      */
     public function login($request)
     {
-        if(!empty($request)) {
-            $valid_email = User::query ()->where (
-                'email', '=', $request['email_login']
-            )->get ();
-            if ($valid_email->count () > 0) {
-                if (password_verify ($request['password_login'], $valid_email[0]->password)) {
-                    $this->session->add ('name_user', $valid_email[0]->name);
-                    $this->session->add ('email', $valid_email[0]->email);
-                    header ("Location: https://shielded-fjord-53139.herokuapp.com/Home/init");
+        if(!$this->session->validate_session ()) {
+            if (!empty($request)) {
+                $valid_email = User::query ()->where (
+                    'email', '=', $request['email_login']
+                )->get ();
+                if ($valid_email->count () > 0) {
+                    if (password_verify ($request['password_login'], $valid_email[0]->password)) {
+                        $this->session->add ('name_user', $valid_email[0]->name);
+                        $this->session->add ('email', $valid_email[0]->email);
+                        header ("Location: https://shielded-fjord-53139.herokuapp.com");
+                    } else {
+                        $data = [
+                            'error' => "Email or password does not match, please verify!",
+                            'dataForm' => $request
+                        ];
+                        $this->view_index ($data);
+                    }
                 } else {
                     $data = [
-                        'error' => "Email or password does not match, please verify!",
+                        'error' => "Email do not exists, please verify!",
                         'dataForm' => $request
                     ];
                     $this->view_index ($data);
                 }
             } else {
-                $data = [
-                    'error' => "Email do not exists, please verify!",
-                    'dataForm' => $request
-                ];
-                $this->view_index ($data);
+                $this->view_index ([]);
             }
         }else{
-            $this->view_index ([]);
+            $this->view_session ();
         }
     }
 

@@ -65,7 +65,7 @@ class Router
      */
     public function setMethod()
     {
-        $this->method = ! empty($this->uri[3]) ? $this->uri[3] : 'exec';
+        $this->method = ! empty($this->uri[2]) ? $this->uri[2] : 'exec';
     }
 
 
